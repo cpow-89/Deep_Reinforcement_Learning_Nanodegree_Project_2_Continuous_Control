@@ -4,9 +4,21 @@
   "monitor_dir": [ "monitor" ],
   "checkpoint_dir": [ "checkpoints" ],
   "run_training": false,
+  "device": "cuda:0",
   "average_score_for_solving": 30,
-  "num_workers": 1,
+  "seed": 0,
+
   "n_inputs": 33,
   "n_actions": 4,
-  "learning_rate": 1e-4
+  "buffer_size": 1000000,
+  "batch_size": 124,
+  "gamma": 0.99,
+  "tau": 0.001,
+  "learning_rate_actor": 0.0001,
+  "learning_rate_critic": 0.0003,
+  "l2_weight_decay": 0.0001,
+
+  "mu": 0,
+  "theta": 0.15,
+  "sigma": 0.2
 }

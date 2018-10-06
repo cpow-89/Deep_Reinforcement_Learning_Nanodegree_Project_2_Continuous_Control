@@ -1,7 +1,8 @@
 import os
 import json
-from unityagents import UnityEnvironment
 import session
+import torch
+from unityagents import UnityEnvironment
 
 
 def main():
@@ -9,6 +10,7 @@ def main():
         config = json.load(read_file)
 
     env = UnityEnvironment(file_name=os.path.join(*config["env_path"]))
+    device = torch.device(config["device"])
 
     if config["run_training"]:
         pass
