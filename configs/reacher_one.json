@@ -1,0 +1,12 @@
+{
+  "env_name": "Reacher_One_Linux",
+  "env_path": [".", "p2_continuous-control", "Reacher_One_Linux", "Reacher.x86_64"],
+  "monitor_dir": [ "monitor" ],
+  "checkpoint_dir": [ "checkpoints" ],
+  "run_training": false,
+  "average_score_for_solving": 30,
+  "num_workers": 1,
+  "n_inputs": 33,
+  "n_actions": 4,
+  "learning_rate": 1e-4
+}
