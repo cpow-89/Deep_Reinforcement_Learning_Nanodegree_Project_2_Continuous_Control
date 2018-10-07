@@ -11,7 +11,7 @@ class OrnsteinUhlenbeckNoise:
        - that means that two consecutive samples are more likely to be closer together than further apart
     """
 
-    def __init__(self, size, seed, mu, theta, sigma):
+    def __init__(self, size, mu, theta, sigma, seed=0):
         """Initialize parameters and noise process."""
         self.mu = mu * np.ones(size)
         self.theta = theta
