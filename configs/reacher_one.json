@@ -15,7 +15,9 @@
   "gamma": 0.99,
   "tau": 0.001,
   "learning_rate_actor": 0.0001,
+  "fc_units_actor": [256, 128],
   "learning_rate_critic": 0.0003,
+  "fc_units_critic": [256, 128],
   "l2_weight_decay": 0.0001,
 
   "mu": 0,
