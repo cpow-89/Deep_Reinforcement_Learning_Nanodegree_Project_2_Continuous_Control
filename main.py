@@ -1,5 +1,7 @@
 import os
 import json
+import argparse
+
 from unityagents import UnityEnvironment
 
 import session
@@ -10,7 +12,18 @@ import utils
 
 
 def main():
-    with open(os.path.join(".", "configs", "reacher_one.json"), "r") as read_file:
+    parser = argparse.ArgumentParser(description="Run Extended Q-Learning with given config")
+    parser.add_argument("-c",
+                        "--config",
+                        type=str,
+                        metavar="",
+                        required=True,
+                        help="Config file name - file must be available as .json in ./configs")
+
+    args = parser.parse_args()
+
+    # load config files
+    with open(os.path.join(".", "configs", args.config), "r") as read_file:
         config = json.load(read_file)
 
     env = UnityEnvironment(file_name=os.path.join(*config["env_path"]))
