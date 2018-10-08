@@ -7,7 +7,7 @@ For more information on the implemented features refer to Project_Continuous_Con
 
 ### Project 2 - Continuous Control - Details:
 
-The goal of this project was to train an agent represented by a double-jointed arm to maintain its position at the target location(great green sphere) for as many time steps as possible. 
+The goal of this project was to train an agent, represented by a double-jointed arm, to maintain its position at the target location(great green sphere) for as many time steps as possible. 
 
 [//]: # (Image References)
 
@@ -55,7 +55,7 @@ The goal of this project was to train an agent represented by a double-jointed a
     
 - your folder should now look something like this:
 
-\Banana_Environment<br>
+\Reacher_One_Linux<br>
 &nbsp;&nbsp;&nbsp;&nbsp; \Reacher_Data  <br>
 &nbsp;&nbsp;&nbsp;&nbsp; \Reacher.x86<br>
 &nbsp;&nbsp;&nbsp;&nbsp; \Reacher.x86_64<br>
