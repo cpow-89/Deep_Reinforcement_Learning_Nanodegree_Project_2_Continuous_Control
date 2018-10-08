@@ -1,6 +1,6 @@
 import random
 import torch
-import torch.nn.functional as F
+import torch.nn.functional as functional
 import torch.optim as optim
 import numpy as np
 from network import DDPGActor
@@ -16,13 +16,13 @@ class DDPGAgent:
         self.seed = random.seed(config["seed"])
 
         # Actor
-        self.actor = DDPGActor(config["n_inputs"], config["n_actions"]).to(self.device)
-        self.actor_target = DDPGActor(config["n_inputs"], config["n_actions"]).to(self.device)
+        self.actor = DDPGActor(config["n_inputs"], config["n_actions"], config["fc_units_actor"]).to(self.device)
+        self.actor_target = DDPGActor(config["n_inputs"], config["n_actions"], config["fc_units_actor"]).to(self.device)
         self.actor_optimizer = optim.Adam(self.actor.parameters(), lr=config["learning_rate_actor"])
 
         # Critic
-        self.critic = DDPGCritic(config["n_inputs"], config["n_actions"]).to(self.device)
-        self.critic_target = DDPGCritic(config["n_inputs"], config["n_actions"]).to(self.device)
+        self.critic = DDPGCritic(config["n_inputs"], config["n_actions"], config["fc_units_critic"]).to(self.device)
+        self.critic_target = DDPGCritic(config["n_inputs"], config["n_actions"], config["fc_units_critic"]).to(self.device)
         self.critic_optimizer = optim.Adam(self.critic.parameters(), lr=config["learning_rate_critic"],
                                            weight_decay=config["l2_weight_decay"])
 
@@ -57,24 +57,28 @@ class DDPGAgent:
         """Update network using one sample of experience from memory"""
         if len(self.memory) > self.config["batch_size"]:
             states, actions, rewards, next_states, dones = self.memory.sample(self.config["batch_size"])
-            self._update_critic(states, actions, rewards, next_states, dones)
-            self._update_actor(states)
+            critic_loss = self._update_critic(states, actions, rewards, next_states, dones)
+            actor_loss = self._update_actor(states)
             self._update_targets()
+            return actor_loss, critic_loss
+        return None, None
 
     def _update_critic(self, states, actions, rewards, next_states, dones):
         loss = self._calc_critic_loss(states, actions, rewards, next_states, dones)
         self._update_weights(self.critic_optimizer, loss)
+        return loss
 
     def _calc_critic_loss(self, states, actions, rewards, next_states, dones):
         actions_next = self.actor_target(next_states)
         q_targets_next = self.critic_target(next_states, actions_next)
         q_targets = rewards + (self.config["gamma"] * q_targets_next * (1 - dones))
         q_expected = self.critic(states, actions)
-        return F.mse_loss(q_expected, q_targets)
+        return functional.mse_loss(q_expected, q_targets)
 
     def _update_actor(self, states):
         loss = self._calc_actor_loss(states)
         self._update_weights(self.actor_optimizer, loss)
+        return loss
 
     def _calc_actor_loss(self, states):
         actions_pred = self.actor(states)
