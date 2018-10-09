@@ -5,6 +5,7 @@ import utils
 
 
 class Protocol:
+    """Simple class to track reward, steps, episodes and loss information during training"""
     def __init__(self, config):
         self.config = config
         self.writer = SummaryWriter(os.path.join(".", *self.config["monitor_dir"],

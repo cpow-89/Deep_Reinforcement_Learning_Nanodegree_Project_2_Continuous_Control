@@ -22,7 +22,8 @@ class DDPGAgent:
 
         # Critic
         self.critic = DDPGCritic(config["n_inputs"], config["n_actions"], config["fc_units_critic"]).to(self.device)
-        self.critic_target = DDPGCritic(config["n_inputs"], config["n_actions"], config["fc_units_critic"]).to(self.device)
+        self.critic_target = DDPGCritic(config["n_inputs"], config["n_actions"],
+                                        config["fc_units_critic"]).to(self.device)
         self.critic_optimizer = optim.Adam(self.critic.parameters(), lr=config["learning_rate_critic"],
                                            weight_decay=config["l2_weight_decay"])
 
@@ -37,7 +38,7 @@ class DDPGAgent:
         self.memory.add(state, action, reward, next_state, done)
 
     def act(self, state):
-        """Returns actions for given state as per current policy."""
+        """Returns an actions for given state as per current policy."""
         state = torch.from_numpy(state).float().to(self.device)
         self.actor.eval()
         with torch.no_grad():
@@ -46,11 +47,16 @@ class DDPGAgent:
         return action
 
     def act_noisy(self, state):
+        """
+        Returns an actions + additional exploration noise for given state as per current policy.
+        Should be used for training to emphasise exploration.
+        """
         action = self.act(state)
         action += self.noise.sample()
         return np.clip(action, -1, 1)
 
     def reset(self):
+        """reset of the exploration noise"""
         self.noise.reset()
 
     def learn(self):
