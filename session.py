@@ -4,6 +4,7 @@ import protocol
 
 def _run_train_episode(agent, env, brain_name, train_log):
     env_info = env.reset(train_mode=True)[brain_name]
+    agent.reset()
     state = env_info.vector_observations[0]
     while True:
         action = agent.act_noisy(state)

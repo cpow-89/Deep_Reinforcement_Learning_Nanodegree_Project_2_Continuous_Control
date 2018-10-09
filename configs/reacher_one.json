@@ -4,9 +4,9 @@
   "monitor_dir": [ "monitor" ],
   "checkpoint_dir": [ "checkpoints" ],
   "max_num_episodes": 1200,
-  "run_training": false,
+  "run_training": true,
   "device": "cuda:0",
-  "average_score_for_solving": 30,
+  "average_score_for_solving": 35,
   "seed": 0,
 
   "n_inputs": 33,
@@ -19,7 +19,7 @@
   "fc_units_actor": [400, 300],
   "learning_rate_critic": 0.0003,
   "fc_units_critic": [400, 300],
-  "l2_weight_decay": 0.0001,
+  "l2_weight_decay": 0.01,
 
   "mu": 0,
   "theta": 0.15,
