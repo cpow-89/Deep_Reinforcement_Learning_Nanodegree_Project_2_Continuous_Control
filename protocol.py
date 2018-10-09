@@ -26,13 +26,15 @@ class Protocol:
         self.episode_reward = 0
 
     def write_statistics(self):
-        self.writer.add_scalar("reward_100", np.mean(self.episode_rewards[-100:]), self.step)
+        self.writer.add_scalar("average reward (over 100 episodes)",
+                               np.mean(self.episode_rewards[-100:]),
+                               len(self.episode_rewards))
         if self.actor_loss and self.critic_loss:
-            self.writer.add_scalar("actor_loss", self.actor_loss, self.step)
-            self.writer.add_scalar("critic_loss", self.critic_loss, self.step)
+            self.writer.add_scalar("actor_loss", self.actor_loss, len(self.episode_rewards))
+            self.writer.add_scalar("critic_loss", self.critic_loss, len(self.episode_rewards))
 
     def __str__(self):
         episode_info = "Episode: {}".format(len(self.episode_rewards))
         step_info = "Step: {}".format(self.step)
-        mean_reward_info = "Mean reward over the last 100 steps: {}".format(np.mean(self.episode_rewards[-100:]))
+        mean_reward_info = "Average reward (over 100 episodes): {}".format(np.mean(self.episode_rewards[-100:]))
         return " - ".join([episode_info, step_info, mean_reward_info])
