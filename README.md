@@ -2,7 +2,7 @@
 
 This project includes the code for an implementation of the deep deterministic policy gradient(DDPG) algorithm which I wrote to solve the Project 2 - Continuous Control of the [Deep Reinforcement Learning Nanodegree](https://www.udacity.com/course/deep-reinforcement-learning-nanodegree--nd893) @ Udacity. My version of the DDPG algorithm is inspired by chapter 14 of Maxim Lapan’s book called "Deep Reinforcement Learning Hands-On".
 
-For more information on the implemented features refer to "Report.md". The notebook includes a summary of all essential concepts used in the code.
+For more information on the implemented features refer to "Report.ipynb". The notebook includes a summary of all essential concepts used in the code.
 
 
 ### Project 2 - Continuous Control - Details:
